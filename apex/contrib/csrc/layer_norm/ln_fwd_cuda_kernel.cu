@@ -139,7 +139,47 @@ void launch(
     cudaStream_t stream
 ){
 
-  if (cols == 1024) {
+  if (cols == 2048){
+    using Ktraits = Kernel_traits<scalar_t, 2048, 4, 1>;
+    const int grid =
+        std::min<int>(DIVUP(rows, Ktraits::ROWS_PER_CTA), max_gridx);
+
+    ln_fwd_kernel<Ktraits><<<grid, Ktraits::THREADS_PER_CTA, 0, stream>>>(
+        y.data_ptr(), mu.data_ptr(), rsigma.data_ptr(), x.data_ptr(),
+        gamma.data_ptr(), beta.data_ptr(), epsilon, rows);
+  } else if (cols == 2560){
+    using Ktraits = Kernel_traits<scalar_t, 2560, 4, 1>;
+    const int grid =
+        std::min<int>(DIVUP(rows, Ktraits::ROWS_PER_CTA), max_gridx);
+
+    ln_fwd_kernel<Ktraits><<<grid, Ktraits::THREADS_PER_CTA, 0, stream>>>(
+        y.data_ptr(), mu.data_ptr(), rsigma.data_ptr(), x.data_ptr(),
+        gamma.data_ptr(), beta.data_ptr(), epsilon, rows);
+  } else if (cols == 3072){
+    using Ktraits = Kernel_traits<scalar_t, 3072, 4, 1>;
+    const int grid =
+        std::min<int>(DIVUP(rows, Ktraits::ROWS_PER_CTA), max_gridx);
+
+    ln_fwd_kernel<Ktraits><<<grid, Ktraits::THREADS_PER_CTA, 0, stream>>>(
+        y.data_ptr(), mu.data_ptr(), rsigma.data_ptr(), x.data_ptr(),
+        gamma.data_ptr(), beta.data_ptr(), epsilon, rows);
+  } else if (cols == 3584){
+    using Ktraits = Kernel_traits<scalar_t, 3584, 4, 1>;
+    const int grid =
+        std::min<int>(DIVUP(rows, Ktraits::ROWS_PER_CTA), max_gridx);
+
+    ln_fwd_kernel<Ktraits><<<grid, Ktraits::THREADS_PER_CTA, 0, stream>>>(
+        y.data_ptr(), mu.data_ptr(), rsigma.data_ptr(), x.data_ptr(),
+        gamma.data_ptr(), beta.data_ptr(), epsilon, rows);
+  } else if (cols == 4096){
+    using Ktraits = Kernel_traits<scalar_t, 4096, 4, 1>;
+    const int grid =
+        std::min<int>(DIVUP(rows, Ktraits::ROWS_PER_CTA), max_gridx);
+
+    ln_fwd_kernel<Ktraits><<<grid, Ktraits::THREADS_PER_CTA, 0, stream>>>(
+        y.data_ptr(), mu.data_ptr(), rsigma.data_ptr(), x.data_ptr(),
+        gamma.data_ptr(), beta.data_ptr(), epsilon, rows);
+  } else if (cols == 1024) {
     using Ktraits = Kernel_traits<scalar_t, 1024, 4, 1>;
     const int grid =
         std::min<int>(DIVUP(rows, Ktraits::ROWS_PER_CTA), max_gridx);
@@ -147,7 +187,30 @@ void launch(
     ln_fwd_kernel<Ktraits><<<grid, Ktraits::THREADS_PER_CTA, 0, stream>>>(
         y.data_ptr(), mu.data_ptr(), rsigma.data_ptr(), x.data_ptr(),
         gamma.data_ptr(), beta.data_ptr(), epsilon, rows);
+  } else if (cols == 512){
+    using Ktraits = Kernel_traits<scalar_t, 512, 4, 1>;
+    const int grid =
+        std::min<int>(DIVUP(rows, Ktraits::ROWS_PER_CTA), max_gridx);
 
+    ln_fwd_kernel<Ktraits><<<grid, Ktraits::THREADS_PER_CTA, 0, stream>>>(
+        y.data_ptr(), mu.data_ptr(), rsigma.data_ptr(), x.data_ptr(),
+        gamma.data_ptr(), beta.data_ptr(), epsilon, rows);
+  } else if (cols == 256){
+    using Ktraits = Kernel_traits<scalar_t, 256, 4, 1>;
+    const int grid =
+        std::min<int>(DIVUP(rows, Ktraits::ROWS_PER_CTA), max_gridx);
+
+    ln_fwd_kernel<Ktraits><<<grid, Ktraits::THREADS_PER_CTA, 0, stream>>>(
+        y.data_ptr(), mu.data_ptr(), rsigma.data_ptr(), x.data_ptr(),
+        gamma.data_ptr(), beta.data_ptr(), epsilon, rows);
+  } else if (cols == 8192){
+    using Ktraits = Kernel_traits<scalar_t, 8192, 4, 1>;
+    const int grid =
+        std::min<int>(DIVUP(rows, Ktraits::ROWS_PER_CTA), max_gridx);
+
+    ln_fwd_kernel<Ktraits><<<grid, Ktraits::THREADS_PER_CTA, 0, stream>>>(
+        y.data_ptr(), mu.data_ptr(), rsigma.data_ptr(), x.data_ptr(),
+        gamma.data_ptr(), beta.data_ptr(), epsilon, rows);
   } else {
     assert(false && "Not implemented");
   }
